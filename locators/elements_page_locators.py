@@ -23,3 +23,12 @@ class CheckBoxPageLocators:
     TITLE_ITEM = ".//ancestor::span[@class='rct-text']"
     OUTPUT_RESULT = (By.CSS_SELECTOR, "span[class='text-success']")
 
+class RadioButtonPageLocators:
+    RADIO_BUTTONS = (By.CSS_SELECTOR, "input[name='like']")
+    OUTPUT_RESULT = (By.CSS_SELECTOR, "span[class='text-success']")
+    RADIOBUTTON_TITLE = ".//following::label"
+
+    YES = (By.CSS_SELECTOR, "label[class^='custom-control'][for='yesRadio']")
+    IMPRESSIVE = (By.CSS_SELECTOR, "label[class^='custom-control'][for='impressiveRadio']")
+    NO = (By.CSS_SELECTOR, "label[class^='custom-control'][for='noRadio']")
+    OUTPUT = (By.CSS_SELECTOR, "p span[class='text-success']")

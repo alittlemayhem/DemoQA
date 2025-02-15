@@ -5,7 +5,7 @@ from typing import List
 from selenium.webdriver.remote.webelement import WebElement
 
 from generator.generator import generated_person
-from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators
+from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators
 from pages.base_page import BasePage
 
 
@@ -59,9 +59,33 @@ class CheckBoxPage(BasePage):
             data.append(title_item.text.replace(' ', '').replace('.doc', '').lower())
         return data
 
-    def get_output_result(self):
+    def get_output_result(self) -> List[str]:
         result_list: List[WebElement] = self.elements_are_present(self.locators.OUTPUT_RESULT)
         data: List[str] = []
         for item in result_list:
             data.append(item.text.lower())
         return data
+
+class RadioButtonPage(BasePage):
+    # my solution
+    '''locators = RadioButtonPageLocators()
+
+    def select_random_radiobutton(self) -> str:
+        buttons_list: List[WebElement] = self.elements_are_present(self.locators.RADIO_BUTTONS)
+        button = buttons_list[random.randint(0,2)]
+        self.driver.execute_script("arguments[0].click();", button)
+        return button.find_element("xpath", self.locators.RADIOBUTTON_TITLE).text
+
+    def get_output_result(self) -> str:
+        return self.element_is_visible(self.locators.OUTPUT_RESULT).text'''
+    locators = RadioButtonPageLocators()
+
+    def click_radio_button(self, choice):
+        choices = {"yes": self.locators.YES,
+        "impressive": self.locators.IMPRESSIVE,
+        "no": self.locators.NO}
+
+        self.element_is_visible(choices[choice]).click()
+
+    def get_output_result(self):
+        return self.element_is_visible(self.locators.OUTPUT_RESULT).text
